@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% comment %} <h1>Se creo el alumno {{alumno}} correctamente... </h1> {% endcomment %}
+    <h1>Crear alumno</h1>
+
+    <form actions={%url 'crear_alumno'%} method="POST">
+        {% csrf_token %}
+       {% comment %}
+       v1
+         <p>
+             Nombre
+             <input type='text' name='nombre'>
+         </p>
+         <p>
+             Apellido
+             <input type='text' name='apellido'>
+         </p>
+         <p>
+             Edad
+             <input type='number' name='edad'>
+         </p>
+       {% endcomment %}
+       <table>
+            {{formulario}}
+       </table>
+        <input type='submit' value='Crear alumno'>
+    
+    </form>
+
+</body>
+</html>

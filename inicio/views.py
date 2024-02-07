@@ -1,8 +1,11 @@
 from datetime import datetime
+import random
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 # from django.template import Template, Context, loader
+from inicio.models import Alumno
+from inicio.forms import FormularioCreacionAlumno
 
 
 def inicio(request):
@@ -30,11 +33,12 @@ def inicio(request):
     # return HttpResponse(template_renderizado)
 
     # v3 - render
-    dicc = {
-        'nombre': 'Carlos',
-        'apellido': 'Perez'
-    }
-    return render(request, 'inicio.html', dicc)
+    return render(request, 'inicio.html')
+
+
+def alumnos(request):
+    alumnos = Alumno.objects.all()
+    return render(request, 'alumnos.html', {'alumnos': alumnos})
 
 
 def mostrar_horario(request):
@@ -46,3 +50,35 @@ def saludo(request, nombre, apellido):
     nombre_forma = nombre.title()
     apellido_formateado = apellido.title()
     return HttpResponse(f'Bienvenido {nombre_forma} {apellido_formateado}')
+
+
+# def crear_alumno(request, nombre, apellido, edad):
+#     alumno = Alumno(nombre=nombre, apellido=apellido, edad=edad,
+#                     nota=random.randint(1, 10))
+#     alumno.save()
+#     return render(request, 'crear_alumno.html', {'alumno': alumno})
+
+def crear_alumno(request):
+    # v1
+    # if request.method == 'POST':
+    # nombre = request.POST.get('nombre')
+    # apellido = request.POST.get('apellido')
+    # edad = request.POST.get('edad')
+    # alumno = Alumno(nombre=nombre, apellido=apellido, edad=edad,
+    #                 nota=random.randint(1, 10))
+    # alumno.save()
+    # return render(request, 'crear_alumno.html', {})
+
+    formulario = FormularioCreacionAlumno()
+    if request.method == 'POST':
+        formulario = FormularioCreacionAlumno(request.POST)
+        if formulario.is_valid():
+            nombre = formulario.cleaned_data.get('nombre')
+            apellido = formulario.cleaned_data.get('apellido')
+            edad = formulario.cleaned_data.get('edad')
+            nota = random.randint(1, 10)
+            alumno = Alumno(nombre=nombre, apellido=apellido, edad=edad,
+                            nota=nota)
+            alumno.save()
+            return redirect('alumnos')
+    return render(request, 'crear_alumno.html', {'formulario': formulario})

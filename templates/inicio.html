@@ -6,8 +6,13 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Hola Soy tu primera pagina web!!</h1>
-
-    <p>{{nombre}} {{apellido}}</p>
+    <nav>
+        <a href={% url "inicio"%}>Inicio</a>
+        <a href={% url "alumnos"%}>Alumnos</a>
+        <a href={% url "crear_alumno"%}>Crear alumno</a>
+    </nav>
+    <h1>Hola soy tu primera pagina web!!</h1>
+    
 </body>
 </html>
+

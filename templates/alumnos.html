@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <nav>
+        <a href={% url "inicio"%}>Inicio</a>
+        <a href={% url "alumnos"%}>Alumnos</a> 
+        <a href={% url "crear_alumno"%}>Crear alumno</a>
+    </nav>
+    <h1>Listado de alumnos</h1>
+    <ul>
+        {% for alumno in alumnos %}  
+            {%if alumno.nota > 6%}
+                <li style='color: green'>{{alumno}}</li>
+            {% else %}
+                <li style='color: red'>{{alumno}}</li> 
+            {% endif %}
+        {% endfor %}
+    </ul>
+</body>
+</html>
