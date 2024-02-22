@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block header %} <h1>Crear alumno</h1> {% endblock header %}
+
+{% block main%}
+    <form actions={%url 'crear_alumno'%} method="POST">
+        {% csrf_token %}
+       <table>
+            {{formulario}}
+       </table>
+        <input type='submit' value='Crear alumno'>
+    </form>
+{% endblock main%}
+

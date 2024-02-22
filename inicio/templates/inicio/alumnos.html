@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block h1_header%}
+    Listado de alumnos
+{% endblock h1_header %}
+{% block main%}
+<a href={% url "crear_alumno"%}>Crear alumno</a>
+    <form action="{% url 'alumnos' %}">
+        {{formulario}}
+        <input type='submit' value='Buscar'>
+    </form>
+    {% if alumnos %}
+    <ul>
+        {% for alumno in alumnos %}  
+           {% comment %}  {%if alumno.nota > 6%}
+                <li style='color: green'>{{alumno}}</li>
+            {% else %}
+                <li style='color: red'>{{alumno}}</li> 
+            {% endif %} {% endcomment %}
+            <li>{{alumno}} | <a href={% url "ver_alumno" alumno.id %}>Ver</a> 
+                | <a href={% url "eliminar_alumno" alumno.id %}>Eliminar</a> 
+                | <a href={% url "editar_alumno" alumno.id %}>Editar</a> |
+            </li>
+        {% endfor %}
+    </ul>
+    {%else%}
+    <p>No se encontraron alumnos cargados</p>
+    {%endif%}
+{% endblock main%}
+

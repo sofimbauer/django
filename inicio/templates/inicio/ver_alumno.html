@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block h1_header%}
+    Datos del alumno {{alumno.id}}
+{% endblock h1_header %}
+{% block main%}
+<ul>
+    <li>Nombre: {{alumno.nombre}}</li>
+    <li>Apellido: {{alumno.apellido}}</li>
+    <li>Edad: {{alumno.edad}}</li>
+    <li>Nota: {{alumno.nota}}</li>
+</ul>
+{% endblock main%}

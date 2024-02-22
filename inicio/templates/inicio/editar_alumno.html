@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block header %} <h1>Editar alumno {{alumno.id}}</h1> {% endblock header %}
+
+{% block main%}
+    <form actions={%url 'editar_alumno' alumno.id%} method="POST">
+        {% csrf_token %}
+       <table>
+            {{formulario}}
+       </table>
+        <input type='submit' value='Editar alumno'>
+    </form>
+{% endblock main%}
