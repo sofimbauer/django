@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block header %} <h1>Editar auto</h1> {% endblock header %}
+
+{% block main%}
+<form actions={%url 'editar_auto' auto.id%} method="POST">
+    {% csrf_token %}
+    <table>
+        {{form.media}}
+        {{form}}
+    </table>
+    <input type='submit' value='Editar auto'>
+</form>
+{% endblock main%}

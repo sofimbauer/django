@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block h1_header%}
+    Listado de autos
+{% endblock h1_header %}
+{% block main%}
+<a href={% url "crear_auto"%}>Crear Auto</a>
+    {% if autos %}
+    <ul>
+        {% for auto in autos %}  
+            <li>{{auto}} | <a href={% url "detalle_auto" auto.id %}>Detalle</a> 
+                | <a href={% url "eliminar_auto" auto.id %}>Eliminar</a> 
+                | <a href={% url "editar_auto" auto.id %}>Editar</a> | 
+            </li>
+        {% endfor %}
+    </ul>
+    {%else%}
+    <p>No se encontraron autos cargados</p>
+    {%endif%}
+{% endblock main%}

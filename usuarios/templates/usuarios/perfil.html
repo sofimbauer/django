@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block h1_header %}Perfil de {{request.user}}
+{% endblock h1_header %}
+{% block main %}
+<ul>
+    <li>Nombre: {{request.user.first_name}}</li>
+    <li>Apellido: {{request.user.last_name}}</li>
+    <li>Email: {{request.user.email}}</li>
+    <li>Avatar: <img src={{request.user.datosextras.avatar.url}} alt="" height="100px"></li>
+</ul>
+<a class="btn btn-secondary" href={% url "editar_perfil" %}>Editar perfil</a>
+<a class="btn btn-secondary" href={% url "cambiar_contrasenia" %}>Cambiar contrasenia</a>
+{% endblock main %}

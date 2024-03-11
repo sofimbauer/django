@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block header %} 
+<h1>Cambiar contraseña</h1> 
+{% endblock header %}
+
+{% block main%}
+<form actions={%url 'cambiar_contrasenia'%} method="POST">
+    {% csrf_token %}
+    <table>
+        {{form}}
+    </table>
+    <input type='submit' value='Cambiar'>
+</form>
+{% endblock main%}

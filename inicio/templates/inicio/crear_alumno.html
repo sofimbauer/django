@@ -5,6 +5,7 @@
     <form actions={%url 'crear_alumno'%} method="POST">
         {% csrf_token %}
        <table>
+            {{formulario.media}}
             {{formulario}}
        </table>
         <input type='submit' value='Crear alumno'>

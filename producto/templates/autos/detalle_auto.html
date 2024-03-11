@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block h1_header%}
+<h1>Detalle del {{auto}} </h1>
+{% endblock h1_header %}
+{% block main%}
+<ul>
+    <li>Marca: {{auto.marca}} </li>
+    <li>Modelo: {{auto.modelo}}</li>
+    <li>Descripcion: {{auto.descripcion | safe}} </li>
+    <li>Fecha de fabricacion: {{auto.fecha_fabricacion}} </li>
+</ul>
+{% endblock main%}

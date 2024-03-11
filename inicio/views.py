@@ -6,6 +6,7 @@ from django.http import HttpResponse
 # from django.template import Template, Context, loader
 from inicio.models import Alumno
 from inicio.forms import FormularioCreacionAlumno, FormularioBusquedaAlumno, FormularioEdicionAlumno
+from django.contrib.auth.decorators import login_required
 
 
 def inicio(request):
@@ -40,24 +41,25 @@ def crear_alumno(request):
             nombre = formulario.cleaned_data.get('nombre')
             apellido = formulario.cleaned_data.get('apellido')
             edad = formulario.cleaned_data.get('edad')
+            biografia = formulario.cleaned_data.get('biografia')
             nota = random.randint(1, 10)
             alumno = Alumno(nombre=nombre, apellido=apellido, edad=edad,
-                            nota=nota)
+                            biografia=biografia, nota=nota)
             alumno.save()
             return redirect('alumnos')
     return render(request, 'inicio/crear_alumno.html', {'formulario': formulario})
 
-
+@login_required
 def eliminar_alumno(request, id_alumno):
     alumno = Alumno.objects.get(id=id_alumno)
     alumno.delete()
     return redirect('alumnos')
     # return render(request, 'inicio/eliminar_alumno.html')
 
-
+@login_required
 def editar_alumno(request, id_alumno):
     alumno = Alumno.objects.get(id=id_alumno)
-    formulario = FormularioEdicionAlumno(initial={'nombre': alumno.nombre, 'apellido': alumno.apellido, 'edad': alumno.edad, 'nota': alumno.nota})
+    formulario = FormularioEdicionAlumno(initial={'nombre': alumno.nombre, 'apellido': alumno.apellido, 'edad': alumno.edad, 'biografia': alumno.biografia, 'nota': alumno.nota})
     if request.method == 'POST':
         formulario = FormularioEdicionAlumno(request.POST)
         if formulario.is_valid():
@@ -65,6 +67,7 @@ def editar_alumno(request, id_alumno):
             alumno.nombre = info_nueva.get('nombre')
             alumno.apellido = info_nueva.get('apellido')
             alumno.edad = info_nueva.get('edad')
+            alumno.biografia = info_nueva.get('biografia')
             alumno.nota = info_nueva.get('nota')
             alumno.save()
             return redirect('alumnos')
